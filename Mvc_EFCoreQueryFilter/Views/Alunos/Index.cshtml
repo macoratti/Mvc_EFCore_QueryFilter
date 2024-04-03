@@ -1,0 +1,45 @@
+﻿@model List<Aluno>
+
+<h1>Lista de Alunos</h1>
+
+<form asp-controller="Alunos" asp-action="ToggleFiltro" method="post">
+    <!-- Radiobutton para Habilitar o filtro -->
+    <div class="form-check">
+        <input class="form-check-input" type="radio" id="radHabilitarFiltro" name="filtroOpcao" value="habilitar"
+        @(ViewBag.FiltroAtivo != null && (bool)ViewBag.FiltroAtivo ? "checked" : "")>
+        <label class="form-check-label" for="radHabilitarFiltro">
+            <span>Habilitar Filtro Global</span>
+        </label>
+    </div>
+
+    <!-- Radiobutton para Desabilitar o filtro -->
+    <div class="form-check">
+        <input class="form-check-input" type="radio" id="radDesabilitarFiltro" name="filtroOpcao" value="desabilitar"
+        @(ViewBag.FiltroAtivo != null && !(bool)ViewBag.FiltroAtivo ? "checked" : "")>
+        <label class="form-check-label" for="radDesabilitarFiltro">
+            <span>Desabilitar Filtro Global</span>
+        </label>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Aplicar</button>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Aluno</th>
+            <th>Ativo</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var aluno in Model)
+        {
+            <tr>
+                <td>@aluno.AlunoId</td>
+                <td>@aluno.Nome</td>
+                <td>@(aluno.Ativo ? "Sim" : "Não")</td>
+            </tr>
+        }
+    </tbody>
+</table>
